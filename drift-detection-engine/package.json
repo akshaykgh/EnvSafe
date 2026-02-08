@@ -1,0 +1,13 @@
+{
+  "name": "drift-detection-engine",
+  "version": "1.0.0",
+  "description": "Configuration Drift Detection Engine",
+  "main": "src/driftDetector.js",
+  "type": "module",
+  "scripts": {
+    "test": "node src/driftDetector.test.js"
+  },
+  "keywords": ["config", "drift", "detection"],
+  "author": "",
+  "license": "MIT"
+}

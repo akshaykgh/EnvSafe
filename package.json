@@ -1,0 +1,27 @@
+{
+  "name": "config-monitor",
+  "version": "1.0.0",
+  "description": "Configuration Drift Monitor - Complete JavaScript Implementation",
+  "type": "module",
+  "scripts": {
+    "install:all": "npm run install:server && npm run install:agent && npm run install:ui && npm run install:example",
+    "install:server": "cd config-monitor-server-js && npm install",
+    "install:agent": "cd config-monitor-agent-js && npm install",
+    "install:ui": "cd config-monitor-ui && npm install",
+    "install:example": "cd example-app-js && npm install",
+    "test:engine": "cd drift-detection-engine && npm test",
+    "start:server": "cd config-monitor-server-js && npm start",
+    "start:ui": "cd config-monitor-ui && npm run dev",
+    "start:example": "cd example-app-js && npm start"
+  },
+  "keywords": [
+    "config",
+    "monitor",
+    "drift",
+    "configuration",
+    "nodejs",
+    "express"
+  ],
+  "author": "",
+  "license": "MIT"
+}

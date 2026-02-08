@@ -1,0 +1,5 @@
+{
+  "applicationName": "payment-service",
+  "environment": "prod",
+  "yamlContent": "payment:\n  timeout: 10000\n  retry-count: 3\n  enabled: true\ndebug: false\ndatabase:\n  url: jdbc:postgresql://prod-db:5432/payments\n  username: ${DB_USERNAME}\n  password: ${DB_PASSWORD}"
+}

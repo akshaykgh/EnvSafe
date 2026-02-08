@@ -4,16 +4,16 @@
 
 SERVER_URL="${SERVER_URL:-http://localhost:8080}"
 
-echo "🔍 Quick Smoke Test - Config Monitor"
+echo "Quick Smoke Test - Config Monitor"
 echo "Server: $SERVER_URL"
 echo ""
 
 # Check server is running
 echo -n "Checking server health... "
 if curl -s "$SERVER_URL/health" | jq -e '.status == "UP"' > /dev/null 2>&1; then
-    echo "✅"
+    echo "OK"
 else
-    echo "❌ Server not responding"
+    echo "FAIL - Server not responding"
     echo "   Make sure server is running: cd config-monitor-server-js && npm start"
     exit 1
 fi
@@ -25,9 +25,9 @@ RESPONSE=$(curl -s -X POST "$SERVER_URL/api/v1/baselines" \
     -d '{"applicationName":"smoke-test","environment":"test","yamlContent":"key: value"}')
 
 if echo "$RESPONSE" | jq -e '.status == "success"' > /dev/null 2>&1; then
-    echo "✅"
+    echo "OK"
 else
-    echo "❌"
+    echo "FAIL"
     echo "   Response: $RESPONSE"
     exit 1
 fi
@@ -39,9 +39,9 @@ RESPONSE=$(curl -s -X POST "$SERVER_URL/api/v1/config-snapshots" \
     -d '{"applicationName":"smoke-test","environment":"test","config":{"test.key":"test.value"}}')
 
 if echo "$RESPONSE" | jq -e '.status == "success"' > /dev/null 2>&1; then
-    echo "✅"
+    echo "OK"
 else
-    echo "❌"
+    echo "FAIL"
     echo "   Response: $RESPONSE"
     exit 1
 fi
@@ -50,9 +50,9 @@ fi
 echo -n "Testing drift retrieval... "
 RESPONSE=$(curl -s "$SERVER_URL/api/v1/drifts")
 if echo "$RESPONSE" | jq '.' > /dev/null 2>&1; then
-    echo "✅"
+    echo "OK"
 else
-    echo "❌"
+    echo "FAIL"
     echo "   Response: $RESPONSE"
     exit 1
 fi
@@ -61,12 +61,12 @@ fi
 echo -n "Testing CI check endpoint... "
 RESPONSE=$(curl -s "$SERVER_URL/api/v1/ci-check")
 if echo "$RESPONSE" | jq -e '.status' > /dev/null 2>&1; then
-    echo "✅"
+    echo "OK"
 else
-    echo "❌"
+    echo "FAIL"
     echo "   Response: $RESPONSE"
     exit 1
 fi
 
 echo ""
-echo "✅ All smoke tests passed!"
+echo "All smoke tests passed!"

@@ -102,7 +102,7 @@ if [ -n "$DRIFT_ID" ] && [ "$DRIFT_ID" != "null" ]; then
     test_step "CI check passes after resolve" \
         "curl -s \"$SERVER_URL/api/v1/ci-check?applicationName=$APP_NAME\" | jq -e '.status == \"pass\"'"
 else
-    echo -e "${YELLOW}⚠${NC} Skipping resolve test (no drift ID found)"
+    echo -e "${YELLOW}WARNING${NC} Skipping resolve test (no drift ID found)"
 fi
 
 # Summary
@@ -112,9 +112,9 @@ echo -e "${GREEN}Passed: $TESTS_PASSED${NC}"
 echo -e "${RED}Failed: $TESTS_FAILED${NC}"
 
 if [ $TESTS_FAILED -eq 0 ]; then
-    echo -e "${GREEN}✅ All tests passed!${NC}"
+    echo -e "${GREEN}All tests passed!${NC}"
     exit 0
 else
-    echo -e "${RED}❌ Some tests failed${NC}"
+    echo -e "${RED}Some tests failed${NC}"
     exit 1
 fi

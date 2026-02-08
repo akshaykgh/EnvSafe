@@ -7,7 +7,7 @@ set -e
 
 SERVER_URL="${SERVER_URL:-http://localhost:8080}"
 
-echo "🎨 UI Testing Helper"
+echo "UI Testing Helper"
 echo "==================="
 echo ""
 echo "This script will:"
@@ -20,9 +20,9 @@ echo ""
 # Check server
 echo -n "Checking server... "
 if curl -s "$SERVER_URL/health" | jq -e '.status == "UP"' > /dev/null 2>&1; then
-    echo "✅"
+    echo "OK"
 else
-    echo "❌"
+    echo "FAIL"
     echo ""
     echo "Server is not running!"
     echo "Please start the server first:"
@@ -44,9 +44,9 @@ RESPONSE=$(curl -s -X POST "$SERVER_URL/api/v1/baselines" \
     }")
 
 if echo "$RESPONSE" | jq -e '.status == "success"' > /dev/null 2>&1; then
-    echo "✅"
+    echo "OK"
 else
-    echo "❌"
+    echo "FAIL"
     echo "Response: $RESPONSE"
     exit 1
 fi
@@ -66,7 +66,7 @@ curl -s -X POST "$SERVER_URL/api/v1/config-snapshots" \
             \"debug\": false
         }
     }" > /dev/null
-echo "✅"
+echo "OK"
 
 sleep 2
 
@@ -83,7 +83,7 @@ curl -s -X POST "$SERVER_URL/api/v1/config-snapshots" \
             \"debug\": false
         }
     }" > /dev/null
-echo "✅"
+echo "OK"
 
 sleep 2
 
@@ -100,7 +100,7 @@ curl -s -X POST "$SERVER_URL/api/v1/config-snapshots" \
             \"debug\": true
         }
     }" > /dev/null
-echo "✅"
+echo "OK"
 
 sleep 2
 
@@ -111,20 +111,20 @@ DRIFTS=$(curl -s "$SERVER_URL/api/v1/drifts?applicationName=$APP_NAME&status=ACT
 DRIFT_COUNT=$(echo "$DRIFTS" | jq 'length')
 
 echo ""
-echo "✅ Test data created successfully!"
+echo "Test data created successfully!"
 echo ""
-echo "📊 Summary:"
+echo "Summary:"
 echo "   Application: $APP_NAME"
 echo "   Environment: $ENV"
 echo "   Active Drifts: $DRIFT_COUNT"
 echo ""
-echo "🌐 Next Steps:"
+echo "Next Steps:"
 echo "   1. Make sure UI is running: cd config-monitor-ui && npm run dev"
 echo "   2. Open browser: http://localhost:3000"
 echo "   3. Filter by application: '$APP_NAME'"
 echo "   4. You should see $DRIFT_COUNT active drift(s)"
 echo ""
-echo "📝 Test Scenarios:"
+echo "Test Scenarios:"
 echo "   - View drifts in the dashboard"
 echo "   - Filter by application and status"
 echo "   - Acknowledge a drift"

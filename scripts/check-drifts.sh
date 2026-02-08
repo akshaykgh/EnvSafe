@@ -18,12 +18,12 @@ RESPONSE=$(curl -s "$URL")
 STATUS=$(echo "$RESPONSE" | jq -r '.status')
 
 if [ "$STATUS" = "fail" ]; then
-    echo "❌ FAIL: Unresolved configuration drifts detected"
+    echo "FAIL: Unresolved configuration drifts detected"
     echo ""
     echo "$RESPONSE" | jq '.'
     exit 1
 else
-    echo "✅ PASS: No unresolved configuration drifts"
+    echo "PASS: No unresolved configuration drifts"
     echo ""
     echo "$RESPONSE" | jq '.'
     exit 0
